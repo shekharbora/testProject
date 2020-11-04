@@ -8,6 +8,11 @@ class User < ApplicationRecord
 
   before_save :gethtml
   before_validation :generate_slug
+
+  scope :search ,    ->(topic){ where('headings LIKE ?', "%#{topic}%") }
+  scope :notCurrent, ->(ids){ where(['id NOT IN (?)', ids]) if ids.any?}
+
+  has_friendship
   
   def generate_slug
     self.url_slug = SecureRandom.uuid[0..5] if self.url_slug.nil? || self.url_slug.empty?
@@ -16,9 +21,18 @@ class User < ApplicationRecord
    
 
    def gethtml
-   	data = WebsiteCrawler.new(self.website_url).fetch
-   	binding.pry
+   	self.headings = WebsiteCrawler.new(self.website_url).fetch
    end
+
+   def short
+    Rails.application.routes.url_helpers.short_url(url_slug: self.url_slug)
+  end
+
+
+  # def self.search(topic)
+  #   where('headings LIKE ?', "%#{topic}%")
+  # end
+
 end
 
 

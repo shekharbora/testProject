@@ -1,2 +1,22 @@
-<h1>Home#index</h1>
-<p>Find me in app/views/home/index.html.erb</p>
+<div class="card">
+  <div class="card-body"><h2>Members</h2><hr/>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col">Name</th>
+        <th scope="col">Website Url</th>
+        <th scope="col">Friends</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @users.each do |user|%>
+      <tr>      
+        <td><%= link_to user.name, user_profile_path(user)%></td>
+        <td><%= user.short%></td>
+        <td><%= user.friends.count%></td>
+      </tr>
+      <%end%>
+    </tbody>
+  </table>
+  </div>
+</div>

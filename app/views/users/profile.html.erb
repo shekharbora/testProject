@@ -1,42 +1,37 @@
 
-
-	 <div class="row">
-    <div class="col-sm-4">
-      <h2>About Me</h2>
-      	<%= @user.try(:name)%>
-		<%= @user.try(:website_url)%>
-      <h5>Photo of me:</h5>
-      <div class="fakeimg">Fake Image</div>
-      <p>Some text about me in culpa qui officia deserunt mollit anim..</p>
-      <h3>Some Links</h3>
-      <p>Lorem ipsum dolor sit ame.</p>
-      <ul class="nav nav-pills flex-column">
-        <li class="nav-item">
-          <a class="nav-link active" href="#">Active</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Link</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Link</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link disabled" href="#">Disabled</a>
-        </li>
+<div class="row">
+<div class="col-lg-12 col-sm-6 col-md-6">
+  <div class="card">
+    <div class="card-body"><h2>Member Profile</h2><hr/>
+      <ul class="list-group">
+        <li class="list-group-item"><h5>Name:</h5> <%= @user.name%></li>
+        <li class="list-group-item"><h5>Website:</h5> <%=link_to @user.website_url, @user.short%></li>
+        <li class="list-group-item"><h5>Headings:</h5> <%= simple_format(@user.headings)%></li>
+       
       </ul>
-      <hr class="d-sm-none">
-    </div>
-    <div class="col-sm-8">
-      <h2>TITLE HEADING</h2>
-      <h5>Title description, Dec 7, 2017</h5>
-      <div class="fakeimg">Fake Image</div>
-      <p>Some text..</p>
-      <p>Sunt in culpa qui officia deserunt mollit anim id est laborum consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco.</p>
-      <br>
-      <h2>TITLE HEADING</h2>
-      <h5>Title description, Sep 2, 2017</h5>
-      <div class="fakeimg">Fake Image</div>
-      <p>Some text..</p>
-      <p>Sunt in culpa qui officia deserunt mollit anim id est laborum consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco.</p>
     </div>
   </div>
+</div>
+<div class="col-lg-12 col-sm-6 col-md-6">
+  <div class="card">
+    <div class="card-body"><h2>Friends</h2><hr/>
+      <ul class="list-group">
+        <%@user.friends.each do |friend|%>
+            <li class="list-group-item">Name: <%= link_to friend.name,  user_profile_path(friend)%></li>
+        <%end%>
+      </ul>
+    </div>
+  </div>
+</div>
+<div class="col-lg-12 col-sm-6 col-md-6">
+  <div class="card">
+    <div class="card-body"><h5>Find Experts</h5><hr/>
+      <%= form_tag user_search_expert_path(@user),method: :get,remort: true do%>
+        <%= text_field_tag :topic,'',placeholder: "Find Topic"%>
+        <%= submit_tag :Search%>
+      <%end%>
+    </div>
+  </div>
+</div>
+</div>
+  
