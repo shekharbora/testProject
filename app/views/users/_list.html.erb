@@ -1,0 +1,8 @@
+ <ul class="list-group">
+ 	<% topic.each do |f|%>
+	    <li class="list-group-item"><h5>Name:<%= f.name%></h5>
+	    	<%= f.headings%></br>
+	    	<%= link_to f.short, f.short %>
+	    </li>
+    <%end%>    
+  </ul>

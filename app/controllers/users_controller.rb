@@ -29,12 +29,8 @@ class UsersController < ApplicationController
   end
 
   def search_expert
-
     current_user = User.find(params[:user_id])
-    user = User.search(params[:topic])
-    user = User.search(params[:topic]).notCurrent(current_user.friends.pluck(:id).push(params[:user_id]))
-    binding.pry
-    render json: user
+    @topics = User.search(params[:topic]).notCurrent(current_user.friends.pluck(:id).push(params[:user_id]))
   end
 
 

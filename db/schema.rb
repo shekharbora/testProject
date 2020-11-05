@@ -12,7 +12,10 @@
 
 ActiveRecord::Schema.define(version: 2020_11_04_043361) do
 
-  create_table "friendships", force: :cascade do |t|
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
+  create_table "friendships", id: :serial, force: :cascade do |t|
     t.string "friendable_type"
     t.integer "friendable_id"
     t.integer "friend_id"
